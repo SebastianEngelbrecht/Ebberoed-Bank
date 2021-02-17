@@ -49,10 +49,12 @@ public class RootMenu {
     private void createCustomer() {
         System.out.println("**** Create new customer *******");
 
-        int id = dbConnector.createCustomer(customer);
-        customer.setCustomerId(id);
+
+
         String byNavn = Input.getString("Indtast dit by navn: ");
         String name = Input.getString("Indtast dit fulde navn: ");
-        customer = new Customer(id, byNavn, name);
+        customer = new Customer(byNavn, name, 1);
+        dbConnector.createCustomer(customer);
+
     }
 }

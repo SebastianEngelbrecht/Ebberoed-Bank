@@ -31,32 +31,27 @@ public class DBConnector {
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/EbberoedBank?serverTimezone=Europe/Rome", "root", "254736#47697234");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/EbberoedBank?serverTimezone=Europe/Rome", "root", "herr1234");
     }
 
-    public int createCustomer(Customer customer) {
+    public void createCustomer(Customer customer) {
 
         try {
 
             Connection con = getConnection();
 
 
-            String query = "insert into KUNDE(KundeId, ByNavn, Navn)" + "values(?,?,?)";
+            String query = "INSERT INTO KUNDE(ByNavn, Navn, BankId) VALUES(?,?,?)";
             PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, customer.getCustomerId());
-            stmt.setString(2, customer.getByNavn());
-            stmt.setString(3, customer.getName());
+
+            stmt.setString(1, customer.getByNavn());
+            stmt.setString(2, customer.getName());
+            stmt.setInt(3, customer.getBankId());
             stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            int customerId = 0;
-            if (rs.next()) {
-                customerId = rs.getInt(1);
-            }
+
             con.close();
-            return customerId;
         } catch (Exception e) {
             System.out.println(e);
-            return 0;
         }
 
 

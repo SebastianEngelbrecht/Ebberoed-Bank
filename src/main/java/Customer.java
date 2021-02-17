@@ -5,11 +5,16 @@ public class Customer {
     private int customerId;
     private String byNavn;
     private String name;
+    private int bankId;
 
-    public Customer(int customerId, String byNavn, String name) {
-        this.customerId = customerId;
+    public Customer(String byNavn, String name, int bankId) {
         this.byNavn = byNavn;
         this.name = name;
+        this.bankId = bankId;
+    }
+
+    public int getBankId() {
+        return bankId;
     }
 
     public void setCustomerId(int customerId) {
