@@ -1,6 +1,6 @@
 public class MainMenu {
 
-    Customer customer = new Customer("Søren");
+    Customer customer;
     Account account = new Account(customer);
 
     public void mainMenuLoop() throws BankException {
@@ -19,7 +19,7 @@ public class MainMenu {
                     showTransactions();
                     break;
                 case 4:
-                    showBalandce();
+                    showBalance();
                     break;
                 case 5:
                     running = false;
@@ -48,11 +48,12 @@ public class MainMenu {
 
     private void showTransactions() {
         System.out.println("**** Show transactions *******");
-        System.out.println(account.getTransactions());
+
+        System.out.println(account.getTransactions().toString());
 
     }
 
-    private void showBalandce(){
+    private void showBalance(){
         System.out.println("**** Show balance *******");
         System.out.println("your current balance is: " + account.getBalance());
 
