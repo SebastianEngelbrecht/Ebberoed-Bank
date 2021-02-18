@@ -1,14 +1,17 @@
+import java.sql.SQLException;
+
 public class RootMenu {
     Bank bank = new Bank(0001, "Ebberød Bank", "Ebberød");
     DBConnector dbConnector = new DBConnector();
     Customer customer;
-    public void rootMenuLoop() throws BankException {
+    Account account;
+    public void rootMenuLoop() throws BankException, SQLException, ClassNotFoundException {
 
         boolean running = true;
 
         while (running) {
             showMenu();
-            switch (Input.getInt("Vælg 1-5: ")) {
+            switch (Input.getInt("Vælg 1-4: ")) {
                 case 1:
                     customerLogin();
                     break;
@@ -46,15 +49,17 @@ public class RootMenu {
         System.out.println("the money has ben withdrawn and your current balance is: " + account.withDrawAmount(amount));
     }*/
 
-    private void createCustomer() {
+    private void createCustomer() throws SQLException, ClassNotFoundException {
         System.out.println("**** Create new customer *******");
 
 
 
         String byNavn = Input.getString("Indtast dit by navn: ");
         String name = Input.getString("Indtast dit fulde navn: ");
-        customer = new Customer(byNavn, name, 1);
+        customer = new Customer(byNavn, name, 1, account);
+
         dbConnector.createCustomer(customer);
+        dbConnector.createAccount(account);
 
     }
 }

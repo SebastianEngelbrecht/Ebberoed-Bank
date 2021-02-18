@@ -29,9 +29,10 @@ public class DBConnector {
 
 
 
+
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/EbberoedBank?serverTimezone=Europe/Rome", "root", "herr1234");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/EbberoedBank?serverTimezone=Europe/Rome", "root", "254736#47697234");
     }
 
     public void createCustomer(Customer customer) {
@@ -41,19 +42,35 @@ public class DBConnector {
             Connection con = getConnection();
 
 
-            String query = "INSERT INTO KUNDE(ByNavn, Navn, BankId) VALUES(?,?,?)";
+            String query = "INSERT INTO KUNDE(ByNavn, Navn, BankId, KontoId) VALUES(?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, customer.getByNavn());
             stmt.setString(2, customer.getName());
             stmt.setInt(3, customer.getBankId());
+            stmt.setInt(4,customer.getKontoId());
             stmt.executeUpdate();
 
             con.close();
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+    public void createAccount(Account account) throws SQLException, ClassNotFoundException {
+        try {
+            Connection con = getConnection();
 
+            String query = "INSERT INTO KONTO(Saldo) VALUES(?)";
+            PreparedStatement stmt = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            stmt.setInt(1, account.getBalance());
+            stmt.executeUpdate();
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
 
 
@@ -92,7 +109,7 @@ public class DBConnector {
         }
     */
 
-    }
+
 
 
 }

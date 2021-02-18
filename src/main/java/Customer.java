@@ -6,11 +6,13 @@ public class Customer {
     private String byNavn;
     private String name;
     private int bankId;
+    private int kontoId;
 
-    public Customer(String byNavn, String name, int bankId) {
+    public Customer(String byNavn, String name, int bankId, int kontoID) {
         this.byNavn = byNavn;
         this.name = name;
         this.bankId = bankId;
+        this.kontoId = kontoID;
     }
 
     public int getBankId() {
@@ -31,6 +33,10 @@ public class Customer {
 
     public String getName() {
         return name;
+    }
+
+    public int getKontoId() {
+        return kontoId;
     }
 
     @Override
